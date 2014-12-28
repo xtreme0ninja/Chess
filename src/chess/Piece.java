@@ -21,6 +21,10 @@ public class Piece {
         return null;
     }
     
+    public boolean isWhite(){   //Need to do this better
+        return isWhite;
+    }
+    
     public final boolean isLegalMove(Position pos,Player current){
          //If player is on correct team
          //call Legal Moves

@@ -16,4 +16,17 @@ public class Board {
     
     
     
+    public Board(){
+        
+    }
+    
+    public Piece getPiece(Position location){
+        
+        if(currentBoard[location.x][location.y] != null){
+            return currentBoard[location.x][location.y];
+        }
+        
+        return null;
+    }
+    
 }
