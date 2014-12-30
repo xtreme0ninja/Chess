@@ -25,6 +25,14 @@ public class Piece {
         return isWhite;
     }
     
+    /*
+     * False is black, true is white
+     */
+   
+    public void setColourToWhite(boolean white){
+        isWhite = white;
+    }
+    
     public final boolean isLegalMove(Position pos,Player current){
          //If player is on correct team
          //call Legal Moves
@@ -32,7 +40,7 @@ public class Piece {
         return false;
     }
     
-    public ImageIcon getImage(){
+    public Image getImage(){
         
         return null;
     }
