@@ -15,8 +15,11 @@ public class Piece {
     
     private boolean isWhite;
     private Position location;
+    private Image image;
     
-    public Position[] getLegalMoves(Board state){
+  
+    
+    public Position[] getLegalMoves(Board state, Position pieceLocation){
         //this will be overridden in each method
         return null;
     }
@@ -42,7 +45,11 @@ public class Piece {
     
     public Image getImage(){
         
-        return null;
+        return image;
+    }
+    
+    public void setImage(Image toSet){
+        image = toSet;
     }
     
     

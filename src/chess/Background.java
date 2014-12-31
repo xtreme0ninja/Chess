@@ -175,19 +175,42 @@ public class Background extends JPanel implements MouseListener, MouseMotionList
                 
                 Piece pieceAtTargetLocation = currentState.getPiece(clicked);   //Gets the piece at the location where we want ot move too
                 
-                if (pieceAtTargetLocation == null) {    //If the location we want ot move it to has nothing, move it
+                if (pieceAtTargetLocation == null) {    //If the location we want to move it to has nothing, move it
                     
-                    moveSelectedPiece(clicked);
+                    Position[] legalMoves = selectedPiece.getLegalMoves(currentState,selectedPieceLocation);
+                    
+                    if (isLegalMove(legalMoves,clicked)){   //If the move they want to do is a legal one, then do it
+                    moveSelectedPiece(clicked,false);
+                    }
                     
                 } else if (selectedPiece.isWhite() == pieceAtTargetLocation.isWhite()) {  //If same colour then select that piece instead
-                    
+                    boolean a =selectedPiece.isWhite();
+                    boolean b =pieceAtTargetLocation.isWhite();
                     selectNewPiece(e);
 
+                }else if(!selectedPiece.isWhite() == pieceAtTargetLocation.isWhite()){//If enemy Piece
+                    
+                    moveSelectedPiece(clicked,true);
+                    
+                }else{
+                    //Shouldnt happen
+                
                 }
             }
 
 
         }
+    }
+    
+    public boolean isLegalMove(Position[] legalMoves, Position currentMove){
+        
+        for(int i = 0 ; i < legalMoves.length ; i++){
+            if(legalMoves[i].x == currentMove.x && legalMoves[i].y == currentMove.y ){
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public void selectNewPiece(MouseEvent e) {
@@ -202,7 +225,21 @@ public class Background extends JPanel implements MouseListener, MouseMotionList
         }
     }
 
-    public void moveSelectedPiece(Position clicked) {
+    /*
+     * Move a selected piece to a new location and update the board accordingly
+     * 
+     * @clicked - Position on the board where you are moving the selected piece to
+     * @isCapturingPiece - If you moved on top of an opponents piece, we need to update the removal of said opponts piece
+     */
+    
+    
+    public void moveSelectedPiece(Position clicked, boolean isCapturingPiece) {
+        
+        if(isCapturingPiece == true){
+            Piece capturedPiece = currentState.currentBoard[clicked.x][clicked.y];
+            currentState.numPieces--;
+            currentState.storeCapturedPieceForPromotion(capturedPiece);
+        }
         drawAtPosition(selectedPiece, x1, y1);
         currentState.currentBoard[clicked.x][clicked.y] = selectedPiece;    //Move the peice to the new position
         currentState.currentBoard[selectedPieceLocation.x][selectedPieceLocation.y] = null; //Set old location to null
@@ -210,6 +247,8 @@ public class Background extends JPanel implements MouseListener, MouseMotionList
         selectedPiece = null;
         pieceSelected = false;
         selectedPieceNewLocation = clicked;
+        
+        
     }
 
     @Override

@@ -4,24 +4,40 @@
  */
 package chess;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Riley
  */
 public class King extends Piece{
+    
     public boolean hasMoved = false; // For castling
-    public boolean isWhite = false;
+    //public boolean isWhite = false;
+    //public Image image;
     
     public King (boolean isWhite){
-        this.isWhite = isWhite;
+       //this.isWhite = isWhite;
+       super.setColourToWhite(isWhite);
+       
+       Image chessImage;
+       if(isWhite == true){
+       chessImage = new ImageIcon("pawn.png").getImage();
+       }else{
+           chessImage = new ImageIcon("Bishop.png").getImage();
+       }
+       super.setImage(chessImage);
+       //this.image = chessImage;
     }
     
+   
     @Override
-    public Position[] getLegalMoves(Board state){
+    public Position[] getLegalMoves(Board state,Position pieceLocation){
         
         
-        int currentIndex = 0; //For organizing moves
-        Position[] moves = new Position[10];
+       // int currentIndex = 0; //For organizing moves
+       // Position[] moves = new Position[10];
         
         /*if (player.canCastle){  //Some way to tell if castling is allowed
             if(isWhite == true){    //Only account for teams, not which casteling move is allowed
@@ -39,11 +55,12 @@ public class King extends Piece{
         }*/
         
         //find the kings position
-        Position currentPosition = new Position(5,5); // temp setting of current position
+        Position currentPosition = pieceLocation; // temp setting of current position
         int currentX = currentPosition.x;
         int currentY = currentPosition.y;
         
         Position[] movesToCheck = new Position[8];
+        
         
         movesToCheck[0] = new Position(currentX - 1, currentY);        //These are all the possible moves of the king
         movesToCheck[1] = new Position(currentX - 1, currentY - 1);
@@ -55,7 +72,7 @@ public class King extends Piece{
         movesToCheck[7] = new Position(currentX - 1, currentY + 1);
         
         
-        for(int k = 0; k < movesToCheck.length ; k++){
+        /*for(int k = 0; k < movesToCheck.length ; k++){
             Position currentCheck = movesToCheck[k];
             Piece peiceAtTargetLocation = state.getPiece(currentCheck);
             
@@ -71,7 +88,7 @@ public class King extends Piece{
                     currentIndex++;
             }
         }
-        }
+        }*/
         
        /* Position[] resultsInCheck = getActiveSpaces(); // This will get every space that the enemy can hit (To elimate moving into check)
      
@@ -83,7 +100,7 @@ public class King extends Piece{
                 }
             }*/
         
-        return null;
+        return movesToCheck;
     }
     
 }
