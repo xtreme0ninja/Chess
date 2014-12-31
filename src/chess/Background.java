@@ -99,7 +99,7 @@ public class Background extends JPanel implements MouseListener, MouseMotionList
         int y = 40;
         for (int j = 0; j < 8; j++) {
             for (int i = 0; i < 4; i++) {
-                g.setColor(Color.GRAY);
+                g.setColor(Color.LIGHT_GRAY);
                 g.fillRect(x, y, 60, 60);
                 x += 120;
             }

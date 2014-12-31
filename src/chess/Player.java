@@ -13,4 +13,6 @@ public class Player{
     private boolean isWhite; //Differentiate which team colour
     private boolean isHuman; //Differentiate ai and human
     
+    //Havent really used this
+    
 }

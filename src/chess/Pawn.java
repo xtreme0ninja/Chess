@@ -12,23 +12,25 @@ import javax.swing.ImageIcon;
  * @author Riley
  */
 public class Pawn extends Piece{
-    private Image image;
+    
     
     
     public Pawn(boolean isWhite){
-       Image chessImage;
-       chessImage = new ImageIcon("pawn.png").getImage();
-       this.image = chessImage;
-       this.setColourToWhite(isWhite);
+       
+       
+       super.setColourToWhite(isWhite);
+        Image chessImage;
+        if (super.isWhite() == true){
+            chessImage = new ImageIcon("WhitePawn.png").getImage();
+        }else{
+            chessImage = new ImageIcon("BlackPawn.png").getImage();
+        }
+        super.setImage(chessImage);
     }
     
    
     
-    @Override
-    public Image getImage(){
-        
-        return image;
-    }
+   
     
     //if row = last then promotion
 }
